@@ -11,7 +11,7 @@ import (
 )
 
 func Connect() *mongo.Client {
-	MONGO_DB_URL := ""
+	MONGO_DB_URL := "mongodb+srv://nguyenkhanh17112003:kh17112003@cluster0.ed5m8hu.mongodb.net/?retryWrites=true&w=majority"
 	fmt.Print(MONGO_DB_URL)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 20*time.Second)
