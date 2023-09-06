@@ -2,15 +2,11 @@ package main
 
 import (
 	"os"
-	"restaurant-management-backend/src/databases"
 	"restaurant-management-backend/src/middlewares"
 	"restaurant-management-backend/src/routers"
 
 	"github.com/gin-gonic/gin"
-	"go.mongodb.org/mongo-driver/mongo"
 )
-
-var food *mongo.Collection = databases.Open(databases.Client, "food")
 
 func main() {
 	var PORT string = os.Getenv("PORT")
@@ -24,6 +20,7 @@ func main() {
 	routers.User(router)
 
 	router.Use(middlewares.Authentication())
+
 	routers.Food(router)
 	routers.Menu(router)
 	routers.Table(router)

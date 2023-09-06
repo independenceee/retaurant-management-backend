@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"net/http"
-	"restaurant-management-backend/src/databases"
 	"restaurant-management-backend/src/models"
 	"time"
 
@@ -12,11 +11,8 @@ import (
 	"github.com/go-playground/validator/v10"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
-	"go.mongodb.org/mongo-driver/mongo"
 )
 
-var foodCollection *mongo.Collection = databases.Open(databases.Client, "food")
-var menuCollection *mongo.Collection = databases.Open(databases.Client, "menu")
 var validate = validator.New()
 
 func GetFoods() gin.HandlerFunc {
@@ -45,7 +41,6 @@ func GetFood() gin.HandlerFunc {
 func CreateFood() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
 		var c, cancel = context.WithTimeout(context.Background(), 100*time.Second)
-		var menu models.Menu
 		var food models.Food
 		if err := ctx.BindJSON((&food)); err != nil {
 			ctx.JSON(http.StatusBadRequest, gin.H{
